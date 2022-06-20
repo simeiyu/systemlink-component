@@ -1,7 +1,6 @@
 <script>
 import { Form, Button, Input, Select, message } from 'ant-design-vue';
 import { flowSave, flowTurnOn, flowTurnOff, getSpContext } from '../../service/api';
-import { onMounted, onUpdated, onUnmounted } from 'vue'
 export default {
   name: 'Intergration',
   components: {
@@ -44,13 +43,21 @@ export default {
       })
     },
     onTurnOn() {
-      flowTurnOn({appId: this.spContext.appId}).then(res => {
-        message.info(res.msg)
+      flowTurnOn({...this.spContext}).then(res => {
+        if (res.data) {
+          message.success('启动成功')
+        } else {
+          message.error(res.msg)
+        }
       })
     },
     onTurnOff() {
-      flowTurnOff({appId: this.spContext.appId}).then(res => {
-        message.info(res.msg)
+      flowTurnOff({...this.spContext}).then(res => {
+        if (res.data) {
+          message.success('关闭成功')
+        } else {
+          message.error(res.msg)
+        }
       })
     }
   },
@@ -78,7 +85,7 @@ export default {
       <a-textarea  v-model:value="formState.rule"></a-textarea>
     </a-form-item>
     
-    <a-form-item :wrapper-col="{span: 20, offset: 3}">
+    <a-form-item class="footer">
       <a-button type="default" style="margin-right: 10px" @click="onTurnOff">关闭</a-button>
       <a-button type="default" style="margin-right: 10px" @click="onTurnOn">启动</a-button>
       <a-button type="primary" html-type="submit">保存</a-button>
@@ -87,5 +94,9 @@ export default {
 </template>
 
 <style scoped lang="less">
-
+  .footer {
+    .ant-form-item-control-input {
+      justify-content: flex-end;
+    }
+  }
 </style>

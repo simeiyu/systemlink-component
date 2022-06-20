@@ -8,6 +8,7 @@ export default {
   components: {
     AConfigProvider: ConfigProvider,
     Intergration: Intergration,
+    DataBase: DataBase,
   },
   data() {
     return {
@@ -29,7 +30,7 @@ export default {
 
 <template>
   <a-config-provider :locale="locale" :getPopupContainer="getPopupContainer">
-    <Intergration />
+    <DataBase />
   </a-config-provider>
 </template>
 
@@ -38,6 +39,5 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 40px;
 }
 </style>

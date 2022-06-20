@@ -12,7 +12,9 @@ export default {
   data() {
     return {
       database: '',
-      databaseOptions: []
+      databaseOptions: [
+        {value: 'sss', label: 'SSS'}
+      ]
     };
   },
   methods: {
@@ -27,7 +29,7 @@ export default {
 <template>
 <a-form-item label="Database">
   <a-space>
-    <a-select v-model:value="database" />
+    <a-select v-model:value="database" placeholder="选择或新增一个Database" :options="databaseOptions" />
   </a-space>
 </a-form-item>
   <a-row>

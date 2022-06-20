@@ -1,13 +1,12 @@
 {
   "name": "node_systemlink_front",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
     "docker": "node docker/build.js",
-    "start": "node server.ts",
-    "buildImage": "npm run build && ./build.sh"
+    "start": "node server.ts"
   },
   "suanpan": {
     "image_registry": "registry.xuelangyun.com",

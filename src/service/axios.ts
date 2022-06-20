@@ -4,6 +4,7 @@ import { showMessage } from "./status";   // 引入状态码文件
 
 // 设置接口超时时间
 axios.defaults.timeout = 60000;
+axios.defaults.baseURL = location.href;
 axios.defaults.withCredentials = false;
 
 // 添加请求拦截器
@@ -13,7 +14,7 @@ axios.interceptors.request.use(function (config) {
   config.headers = {
     //'Content-Type':'application/x-www-form-urlencoded',   // 传参方式表单
     'Content-Type':'application/json;charset=UTF-8',        // 传参方式json
-    'token':'80c483d59ca86ad0393cf8a98416e2a1'              // 这里自定义配置，这里传的是token
+    // 'token':'80c483d59ca86ad0393cf8a98416e2a1'              // 这里自定义配置，这里传的是token
   };
   return config;
 }, function (error) {
