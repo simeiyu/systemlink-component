@@ -94,9 +94,7 @@ export default {
 </template>
 
 <style scoped lang="less">
-  .footer {
-    .ant-form-item-control-input {
-      justify-content: flex-end;
-    }
-  }
+.footer {
+  text-align: right;
+}
 </style>
