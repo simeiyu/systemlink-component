@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     port: 3006,
     proxy: {
-      '/integration': {
+      '/systemlink': {
         changeOrigin: true,
         target: 'http://47.102.131.179:18086/'
       },

@@ -29,6 +29,7 @@ export default {
     });
   },
   methods: {
+    // 保存
     onFinish(values) {
       const data = {
         ...this.formState,
@@ -42,6 +43,7 @@ export default {
         }
       })
     },
+    // 启动
     onTurnOn() {
       flowTurnOn({...this.spContext}).then(res => {
         if (res.data) {
@@ -51,6 +53,7 @@ export default {
         }
       })
     },
+    // 关闭
     onTurnOff() {
       flowTurnOff({...this.spContext}).then(res => {
         if (res.data) {

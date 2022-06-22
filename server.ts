@@ -4,7 +4,6 @@ const cors = require('cors');
 const axios = require('axios');
 const { Parameter } = require('suanpan_node_sdk');
 
-const gatewayEndpoint = 'http://sim-gateway.default:7777';
 const systemlinkEndpoint = 'http://47.102.131.179:18086';
 axios.defaults.timeout = 60000;
 axios.defaults.withCredentials = false;
@@ -32,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/assets", express.static(dist + '/assets'))
 app.set('views', dist);
 
-app.use('/integration*', async (req, res, next) => {
+app.use('/systemlink*', async (req, res, next) => {
   const { originalUrl, method, params, body } = req;
   let result;
   switch(method) {

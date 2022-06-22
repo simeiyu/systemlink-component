@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "docker": "node docker/build.js",
+    "docker": "vite build && node docker/build.js",
     "start": "node server.ts"
   },
   "suanpan": {
