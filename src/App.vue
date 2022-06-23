@@ -1,8 +1,11 @@
 <script>
 import { ConfigProvider } from 'ant-design-vue';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import { getSpContext } from './service/api';
 import Intergration from './components/intergration/index.vue';
 import DataConnector from './components/dataConnector/index.vue';
+import { onBeforeMount, ref } from 'vue';
+import { get } from 'lodash';
 
 /**
  * Intergration 可编程集成组件
@@ -18,9 +21,27 @@ export default {
     Intergration: Intergration,
     DataConnector: DataConnector,
   },
-  data() {
+  setup() {
+    let currentComponent = ref('Intergration')
+    let spContext = ref();
+    let componentType = ref('');
+    onBeforeMount(async () => {
+      const res = await getSpContext();
+      currentComponent.value = get(res, 'data.component');
+      componentType.value = get(res, 'data.componentType');
+      spContext.value = {
+        appId: get(res, 'data.appId'),
+        userId: get(res, 'data.userId'),
+        nodeId: get(res, 'data.nodeId'),
+        componentId: get(res, 'data.componentId'),
+      }
+      console.log("res : ", res)
+    })
     return {
       locale: zhCN,
+      spContext: spContext,
+      componentType: componentType,
+      currentComponent: currentComponent
     }
   },
   methods: {
@@ -38,7 +59,7 @@ export default {
 
 <template>
   <a-config-provider :locale="locale" :getPopupContainer="getPopupContainer">
-    <DataConnector componentType='Kafka' />
+    <component :is="currentComponent" :spContext="spContext" :componentType="componentType" />
   </a-config-provider>
 </template>
 

@@ -1,6 +1,6 @@
 <script>
 import { message, Form, Button, Input } from 'ant-design-vue';
-import { getSpContext, componentAdd, componentList, componentMetaType } from '../../service/api';
+import { componentAdd, componentList, componentMetaType } from '../../service/api';
 import { has, forEach, map } from 'lodash';
 export default {
   name: 'DataBase',
@@ -11,7 +11,7 @@ export default {
     ATextarea: Input.TextArea,
     AButton: Button,
   },
-  props: ['componentType'],
+  props: ['componentType', 'spContext'],
   data() {
     return {
       activeKey: 'add',
@@ -20,6 +20,7 @@ export default {
         name: '',              // 名称
       },
       metaInfo: {},
+      metaInfoLoading: true,
       component: {
         name: '',
         operate: '',
@@ -31,11 +32,8 @@ export default {
     };
   },
   created() {
-    getSpContext().then(res => {
-      this.spContext = res && res.data;
-      this.getComponentMetaType();
-      this.getComponentList();
-    });
+    this.getComponentMetaType();
+    this.getComponentList();
   },
   methods: {
     // 集成组件配置查询列表
@@ -54,6 +52,7 @@ export default {
     getComponentMetaType () {
       componentMetaType({...this.spContext, componentType: this.componentType}).then(
         res => {
+          this.metaInfoLoading = false;
           if (res.code === 200) {
             this.metaInfo = JSON.parse(res.data.metaInfo);
             const me = this;
@@ -115,6 +114,7 @@ export default {
       <a-form-item label="名称" name="name" :rules="[{ required: true, message: '必填!' }]">
         <a-input v-model:value="addFormState.name" />
       </a-form-item>
+      <div class="load_wrapper" v-if="metaInfoLoading"><a-spin /></div>      
       <div v-for="property in metaInfo.properties">
         <a-divider orientation="left">{{property.title}}</a-divider>
         <a-form-item v-for="item in property.properties" :label="item.title" :name="item.name" :rules="[{ required: item.required, message: '必填!' }]">
@@ -163,6 +163,10 @@ export default {
 }
 .ant-tabs {
   height: 100%;
+}
+.load_wrapper {
+  padding: 40px;
+  text-align: center;
 }
 .ant-tabs-tabpane {
   padding-top: 16px;

@@ -1,6 +1,6 @@
 <script>
 import { Form, Button, Input, Select, message } from 'ant-design-vue';
-import { flowSave, flowTurnOn, flowTurnOff, getSpContext } from '../../service/api';
+import { flowSave, flowTurnOn, flowTurnOff } from '../../service/api';
 export default {
   name: 'Intergration',
   components: {
@@ -11,6 +11,7 @@ export default {
     AButton: Button,
     ASelect: Select,
   },
+  props: ['componentType', 'spContext'],
   data() {
     return {
       extOptions: [{label: 'java', value: 0}, {label: 'groovy', value: 1}, {label: 'yaml', value: 2}, {label: 'xml', value: 3}],
@@ -20,13 +21,7 @@ export default {
         appId: 55587,
         rule: ''
       },
-      spContext: null
     };
-  },
-  created() {
-    getSpContext().then(res => {
-      this.spContext = res && res.data;
-    });
   },
   methods: {
     // 保存
@@ -88,7 +83,7 @@ export default {
       <a-textarea  v-model:value="formState.rule"></a-textarea>
     </a-form-item>
     
-    <a-form-item class="footer">
+    <a-form-item class="footer" :wrapper-col="{span: 23}">
       <a-button type="default" style="margin-right: 10px" @click="onTurnOff">关闭</a-button>
       <a-button type="default" style="margin-right: 10px" @click="onTurnOn">启动</a-button>
       <a-button type="primary" html-type="submit">保存</a-button>

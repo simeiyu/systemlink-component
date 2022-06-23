@@ -4,7 +4,7 @@ const cors = require('cors');
 const axios = require('axios');
 const { Parameter } = require('suanpan_node_sdk');
 
-const systemlinkEndpoint = 'http://47.102.131.179:18086';
+const systemlinkEndpoint = 'http://systemlink-service.systemlink:8080';
 axios.defaults.timeout = 60000;
 axios.defaults.withCredentials = false;
 axios.defaults.ContentType = 'application/json;charset=UTF-8';
@@ -54,6 +54,8 @@ app.get('/spContext/get', (req, res) => {
       nodeId: Parameter.NodeId || NodeId,
       userId: Parameter.UserId || UserId,
       componentId: Parameter.ComponentId || ComponentId,
+      component: process.argv[2],
+      componentType: process.argv[3]
     }
   })
 });
