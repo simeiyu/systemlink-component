@@ -2,13 +2,14 @@
 #### name
 node_systemlink_front
 #### version
-每次执行 node run docker 前，请手动更新 version
+版本号
 #### scripts
 ```jsx
 "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
+    "v:patch": "npm version --no-git-tag-version patch",
     "docker": "vite build && node docker/build.js",
     "start": "node server.ts DataConnector DataBase"
 },
@@ -17,6 +18,7 @@ node_systemlink_front
 - dev：本地开发——前端
 - build：前端构建dist目录
 - serve：略
+- v:patch：版本号更新
 - docker：打包docker镜像，执行前请修改version
 - start：启动server，带两个参数。这两个参数会从/spContext/get 接口发送给前端。
    - 第一个参数：组件的名称。如"DataConnector" 为数据连接器组件，在App.vue中有引用。用于加载前端的预制组件。

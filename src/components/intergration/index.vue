@@ -1,6 +1,10 @@
 <script>
 import { Form, Button, Input, Select, message } from 'ant-design-vue';
 import { flowGet, flowSave, flowTurnOn, flowTurnOff } from '../../service/api';
+import { reactive, ref, toRef } from 'vue';
+import { get } from 'lodash';
+
+const useForm = Form.useForm;
 export default {
   name: 'Intergration',
   components: {
@@ -12,42 +16,44 @@ export default {
     ASelect: Select,
   },
   props: ['componentType', 'spContext'],
-  data() {
-    return {
-      extOptions: [{label: 'java', value: 0}, {label: 'groovy', value: 1}, {label: 'yaml', value: 2}, {label: 'xml', value: 3}],
-      formState: {
-        ext: 3,
-        rule: ''
-      },
-      timer: null
-    };
-  },
-  created() {
-    const me = this;
-    this.timer = setInterval(function() {
-      if (me.spContext) {
-        flowGet({...me.spContext}).then(
+  setup(props) {
+    const formState = reactive({
+      ext: 3,
+      rule: ''
+    });
+    const extRef = toRef(formState, 'ext')
+    const ruleRef = toRef(formState, 'rule')
+    let timer = setInterval(function() {
+      if (props.spContext) {
+        flowGet({...props.spContext}).then(
           res => {
             if (res.code === 200) {
-              me.formState.ext = get(res, 'data.fileExt', 3);
-              me.formState.rule = get(res, 'data.rule', '');
+              extRef.value = get(res, 'data.fileExt', 3);
+              ruleRef.value = get(res, 'data.camelRoute', '');
             }
           }
         )
-        if (me.timer) {
-          clearInterval(me.timer);
-          me.timer = null;
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
         }
       }
-    }, 300)
+    }, 300);
+    return {
+      extOptions: [{label: 'java', value: 0}, {label: 'groovy', value: 1}, {label: 'yaml', value: 2}, {label: 'xml', value: 3}],
+      formState: {
+        ext: extRef,
+        rule: ruleRef
+      }
+    }
   },
   methods: {
     // 保存
     onFinish(values) {
       const data = {
         ...this.spContext,
-        ...this.formState,
-        ...values
+        ext: values.ext.value,
+        rule: values.rule.value
       };
       flowSave(data).then(res => {
         if (res.data) {
@@ -93,13 +99,13 @@ export default {
       label="文本方式"
       name="ext"
     >
-      <a-select v-model:value="formState.ext" :options="extOptions"/>
+      <a-select v-model:value="formState.ext.value" :options="extOptions"/>
     </a-form-item>
     <a-form-item
       label="工作流规则"
       name="rule"
     >
-      <a-textarea  v-model:value="formState.rule"></a-textarea>
+      <a-textarea  v-model:value="formState.rule.value"></a-textarea>
     </a-form-item>
     
     <a-form-item class="footer" :wrapper-col="{span: 23}">
