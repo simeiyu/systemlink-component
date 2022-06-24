@@ -22,7 +22,9 @@ node_systemlink_front
    - 第一个参数：组件的名称。如"DataConnector" 为数据连接器组件，在App.vue中有引用。用于加载前端的预制组件。
    - 第二个参数：组件的类型，如“DataBase”。作为前端请求api时的 componentType 参数。
 
-## 组件的启动命令
+### 组件的镜像设置
+在算盘的组件或节点中，设置镜像（Image）为 [name]:[version]<br />例如：node_systemlink_front:0.0.1
+### 组件的启动命令
 | 组件 | 启动命令 | 备注 |
 | --- | --- | --- |
 | DataBase | node server.ts DataConnector DataBase |  |
