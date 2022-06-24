@@ -1,17 +1,23 @@
 import axios from "./axios";
 
-// 可编程集成组件
 export async function getSpContext() {
   return axios.get('/spContext/get', null)
 }
+// 查询可编程组件内容
+export async function flowGet(data) {
+  return axios.get('/systemlink/integration/component/program', data)
+}
+// 保存可编程组件
 export async function flowSave(data) {
-  return axios.post('/systemlink/integration/flowArrange/route_save', data)
+  return axios.post('/systemlink/integration/component/program', data)
 }
+// 启动集成流
 export async function flowTurnOn(data) {
-  return axios.get('/systemlink/integration/flowArrange/turn_on_flow', data)
+  return axios.get('/systemlink/integration/component/program/turn_on_flow', data)
 }
+// 关闭集成流
 export async function flowTurnOff(data) {
-  return axios.get('/systemlink/integration/flowArrange/turn_off_flow', data)
+  return axios.get('/systemlink/integration/component/program/turn_off_flow', data)
 }
 // 新增集成组件配置
 export async function componentAdd(data) {

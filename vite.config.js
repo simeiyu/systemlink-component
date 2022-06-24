@@ -10,7 +10,7 @@ export default defineConfig({
     proxy: {
       '/systemlink': {
         changeOrigin: true,
-        target: 'http://47.102.131.179:18086/'
+        target: 'http://sp7.iamzju.com:30080/'
       },
       '/spContext': {
         changeOrigin: true,

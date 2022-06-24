@@ -10,13 +10,12 @@ axios.defaults.withCredentials = false;
 axios.defaults.ContentType = 'application/json;charset=UTF-8';
 
 const dist = __dirname + '/dist';
-
 const app = express();
 let port = 3002;
-let AppId = 10002;
-let NodeId = 222;
-let UserId = 100078;
-let ComponentId = 110;
+let AppId = '77800';
+let NodeId = '98edaa50f39211ec84c5bfc02d1bcaa4';
+let UserId = 1000184;
+let ComponentId = 15130;
 
 app.use(cors({
   origin: '*',

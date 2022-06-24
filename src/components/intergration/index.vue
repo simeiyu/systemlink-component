@@ -1,6 +1,6 @@
 <script>
 import { Form, Button, Input, Select, message } from 'ant-design-vue';
-import { flowSave, flowTurnOn, flowTurnOff } from '../../service/api';
+import { flowGet, flowSave, flowTurnOn, flowTurnOff } from '../../service/api';
 export default {
   name: 'Intergration',
   components: {
@@ -17,16 +17,35 @@ export default {
       extOptions: [{label: 'java', value: 0}, {label: 'groovy', value: 1}, {label: 'yaml', value: 2}, {label: 'xml', value: 3}],
       formState: {
         ext: 3,
-        mode: 1,
-        appId: 55587,
         rule: ''
       },
+      timer: null
     };
+  },
+  created() {
+    const me = this;
+    this.timer = setInterval(function() {
+      if (me.spContext) {
+        flowGet({...me.spContext}).then(
+          res => {
+            if (res.code === 200) {
+              me.formState.ext = get(res, 'data.fileExt', 3);
+              me.formState.rule = get(res, 'data.rule', '');
+            }
+          }
+        )
+        if (me.timer) {
+          clearInterval(me.timer);
+          me.timer = null;
+        }
+      }
+    }, 300)
   },
   methods: {
     // 保存
     onFinish(values) {
       const data = {
+        ...this.spContext,
         ...this.formState,
         ...values
       };

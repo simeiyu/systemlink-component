@@ -35,7 +35,6 @@ export default {
         nodeId: get(res, 'data.nodeId'),
         componentId: get(res, 'data.componentId'),
       }
-      console.log("res : ", res)
     })
     return {
       locale: zhCN,
@@ -69,8 +68,26 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
+  overflow: auto;
 }
-.ant-tabs-content-top {
+
+#app::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 8px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+#app::-webkit-scrollbar-thumb {
+  /*滚动条里面*/
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+#app::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0);
+}
+/* .ant-tabs-content-top {
   height: 100%;
-}
+} */
 </style>
