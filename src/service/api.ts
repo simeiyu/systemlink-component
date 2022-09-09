@@ -1,7 +1,8 @@
 import axios from "./axios";
 
 export async function getSpContext() {
-  return axios.get('/spContext/get', null)
+  const prefix = location.href.replace('/#/', '')
+  return axios.get(`${prefix}/sp/context`, null)
 }
 // 查询可编程组件内容
 export async function flowGet(data) {

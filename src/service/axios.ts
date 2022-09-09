@@ -4,7 +4,7 @@ import { showMessage } from "./status";   // 引入状态码文件
 
 // 设置接口超时时间
 axios.defaults.timeout = 60000;
-axios.defaults.baseURL = location.href;
+axios.defaults.baseURL = '';
 axios.defaults.withCredentials = false;
 
 // 添加请求拦截器

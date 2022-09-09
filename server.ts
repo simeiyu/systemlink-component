@@ -4,7 +4,7 @@ const cors = require('cors');
 const axios = require('axios');
 const { Parameter } = require('suanpan_node_sdk');
 
-const systemlinkEndpoint = 'http://systemlink-service.systemlink:8080';
+const systemlinkEndpoint = 'http://systemlink-web-service.systemlink:8080';
 axios.defaults.timeout = 60000;
 axios.defaults.withCredentials = false;
 axios.defaults.ContentType = 'application/json;charset=UTF-8';
@@ -13,7 +13,7 @@ const dist = __dirname + '/dist';
 const app = express();
 let port = 3002;
 let AppId = '77800';
-let NodeId = '98edaa50f39211ec84c5bfc02d1bcaa4';
+let NodeId = '99ec0780f39211ec84c5bfc02d1bcaa4';
 let UserId = 1000184;
 let ComponentId = 15130;
 
@@ -45,7 +45,12 @@ app.use('/systemlink*', async (req, res, next) => {
   res.send(data);
   next();
 });
-app.get('/spContext/get', (req, res) => {
+app.get('/sp/context', (req, res) => {
+  res.cookie('sp.sid', 's%3APZoqi9iB1e5X32-ZUEfoM-RQ-1z3DQ05.v%2Br%2FUUPEfvF9Sks0ybJTaiTHs4Rmc%2BHeyhG3Mebq3k4', {
+    Path: '/',
+    ExpExpires: 'Thu, 02 Dec 2022 01:58:34 GMT',
+    // HttpOnly: true
+  })
   res.send({
     success: true,
     data: {
